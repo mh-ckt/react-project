@@ -1,0 +1,38 @@
+.container {
+  margin-top: 42px;
+  .boxOut {
+    & > p {
+      background-color: #71c6b1;
+      padding: 10px;
+      text-align: center;
+    }
+    .box {
+      margin: 6px;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 4px;
+      .link {
+        color: #71c6b1;
+      }
+      .underline {
+        color: #666;
+        display: inline-block;
+        border-bottom: 1px solid red;
+      }
+      .resolve {
+        margin: 4px 0;
+        padding: 4px;
+        white-space: pre-wrap;
+        background-color: #fff;
+        max-height: 300px;
+        scrollbar-width: none; /* Firefox 64+ */
+        overflow: scroll;
+        border: 1px solid #eaeaea;
+        border-radius: 4px;
+      }
+      .case {
+        margin: 20px 0;
+      }
+    }
+  }
+}

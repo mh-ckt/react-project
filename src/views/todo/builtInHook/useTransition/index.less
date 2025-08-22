@@ -1,0 +1,29 @@
+.useTransition {
+  > * {
+    margin: 10px;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 10px;
+  }
+  .shoppingTrolley {
+    .title {
+      font-size: 20px;
+    }
+    .price {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    .totalPrice {
+      display: flex;
+      justify-content: space-between;
+      & > :last-child {
+        font-size: 20px;
+        span {
+          color: red;
+          padding: 0 6px;
+        }
+      }
+    }
+  }
+}
