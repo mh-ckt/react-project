@@ -1,11 +1,11 @@
 import React from 'react'
 import { TabBar } from 'antd-mobile'
 import styles from './index.less'
-import Me from '../views/me'
-import Message from '../views/message'
-import Home from '../views/home'
-import Todo from '../views/todo'
-import { useLocation, useNavigate } from 'react-router-dom'
+import Me from '@/views/me/index.jsx'
+import Message from '@/views/message/index.jsx'
+import Home from '@/views/questionBank/index.jsx'
+import Todo from '@/views/todo/index.jsx'
+import { useLocation, useNavigate, Outlet } from 'react-router-dom'
 import { AppOutline, MessageOutline, UnorderedListOutline, UserOutline } from 'antd-mobile-icons'
 const tabs = [
   {

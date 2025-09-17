@@ -1,4 +1,5 @@
 {
+   // ✅ 开启保存时自动格式化
   "editor.formatOnSave": true,
-  "editor.formatOnPaste": true
+  "editor.formatOnPaste": true,
 }
