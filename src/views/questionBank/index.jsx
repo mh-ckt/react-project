@@ -3,8 +3,8 @@ import styles from './index.less'
 import router from '@/router/router.js'
 import { useNavigate } from 'react-router-dom'
 
-const Todo = () => {
-  let list = router.routes.find(i => i.path == 'todo' && i.children?.length > 0)?.children
+const Index = () => {
+  let list = router.routes.find(i => i.key == 'question-bank' && i.children?.length > 0)?.children
   const navigate = useNavigate()
   const toLink = item => {
     navigate(item.path, { state: { title: item.name } })
@@ -26,4 +26,4 @@ const Todo = () => {
   )
 }
 
-export default Todo
+export default Index

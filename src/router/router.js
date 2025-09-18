@@ -1,105 +1,109 @@
-import App from '../App.js' // 主页
-import JavaScript from '@/views/questionBank/javascript/index.jsx'
-import Style from '@/views/questionBank/csss/index.jsx'
-import React from '@/views/todo/react/index.jsx'
-import Optimize from '@/views/todo/optimize/index.jsx'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
+// 页面组件导入
+import MainLayout from '../App.js' // 主布局组件
+import JavaScriptQuestion from '@/views/questionBank/javascript/index.jsx'
+import CssStyleQuestion from '@/views/questionBank/csss/index.jsx'
 import RecordBill from '@/views/me/recordBill/index.jsx'
 import BillDetail from '@/views/me/billDetail/index.jsx'
-import Statistics from '@/views/me/billDetail/statistics/index.jsx' // 统计
-import BuiltlnHook from '@/views/todo/builtInHook/index.jsx'
-import HighAction from '@/views/todo/highAction/index.jsx'
-import PageAction from '@/views/todo/pageAction/index.jsx'
-import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
-let routes = [
+import Statistics from '@/views/me/billDetail/statistics/index.jsx' // 统计页面
+
+import ReactQuestion from '@/views/todo/react/index.jsx'
+import OptimizeQuestion from '@/views/todo/optimize/index.jsx'
+import BuiltInHook from '@/views/todo/builtInHook/index.jsx'
+import AdvancedFeatures from '@/views/todo/highAction/index.jsx'
+import PageFeatures from '@/views/todo/pageAction/index.jsx'
+
+// 路由配置数组
+const routeConfig = [
+  // 根路径重定向到首页
   {
     path: '/',
-    key: '',
-    element: <Navigate to={'/home'} />
+    element: <Navigate to="/home" />
   },
+  // 主页面路由 - 使用主布局
   {
     path: '/home',
-    key: 'home',
-    element: <App />
+    element: <MainLayout />
   },
   {
     path: '/me',
-    key: 'me',
-    element: <App />
+    element: <MainLayout />
   },
   {
     path: '/message',
-    key: 'message',
-    element: <App />
+    element: <MainLayout />
   },
   {
     path: '/todo',
-    key: 'todo',
-    element: <App />
+    element: <MainLayout />
   },
+
+  // "我的"页面子路由
   {
-    path: '/me',
-    name: 'me',
+    path: 'me',
     children: [
       {
-        path: 'RecordBill',
-        name: 'RecordBill',
+        path: 'record-bill',
+        name: '记录账单',
         element: <RecordBill />
       },
       {
-        path: 'BillDetail',
-        name: 'BillDetail',
+        path: 'bill-detail',
+        name: '账单明细',
         element: <BillDetail />
       },
       {
-        path: 'Statistics',
-        name: 'Statistics',
+        path: 'statistics',
+        name: '数据图表',
         element: <Statistics />
       }
     ]
   },
+
+  // "待办"页面子路由
   {
-    path: '/todo',
-    key: 'todo',
+    path: 'todo',
     children: [
       {
         path: 'javascript',
-        name: 'javascript',
-        element: <JavaScript />
+        name: 'javascript相关',
+        element: <JavaScriptQuestion />
       },
       {
         path: 'style',
         name: '样式',
-        element: <Style />
+        element: <CssStyleQuestion />
       },
       {
         path: 'optimize',
         name: '性能优化',
-        element: <Optimize />
+        element: <OptimizeQuestion />
       },
       {
         path: 'react',
-        name: 'react',
-        element: <React />
+        name: 'react相关',
+        element: <ReactQuestion />
       },
       {
-        path: 'BuiltlnHook',
+        path: 'built-in-hook',
         name: '内置 Hook',
-        element: <BuiltlnHook />
+        element: <BuiltInHook />
       },
       {
-        path: 'HighAction',
+        path: 'advanced-features',
         name: '进阶功能',
-        element: <HighAction />
+        element: <AdvancedFeatures />
       },
       {
-        path: 'PageAction',
+        path: 'page-features',
         name: '页面功能',
-        element: <PageAction />
+        element: <PageFeatures />
       }
     ]
   }
 ]
 
-let router = createBrowserRouter(routes, {})
-
+export { routeConfig }
+let router = createBrowserRouter(routeConfig)
+// 创建路由实例
 export default router

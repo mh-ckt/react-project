@@ -1,19 +1,19 @@
 import React from 'react'
 import { NavBar } from '@/components/NavBar/index.jsx'
-import { useNavigate, useLocation } from 'react-router'
+import { useNavigate, useLocation } from 'react-router-dom'
 import './index.less'
-// 将图片放在src的目录下，图片会被webpack进行打包（ES6 Modules (Create React App 17+ 支持)）
-import jiluzhangdan from '../../icons/jiluzhangdan.png'
-import quanbuzhangdan from '../../icons/quanbuzhangdan.png'
+import jiluzhangdan from '@/icons/jiluzhangdan.png'
+import quanbuzhangdan from '@/icons/quanbuzhangdan.png'
+
 const billListDetail = [
   {
     name: '记录账单',
-    key: 'recordBill',
+    key: 'record-bill',
     icon: jiluzhangdan
   },
   {
     name: '账单明细',
-    key: 'BillDetail',
+    key: 'bill-detail',
     icon: quanbuzhangdan
   }
 ]
@@ -28,7 +28,7 @@ const Index = () => {
   return (
     <div className="me">
       <NavBar>{location?.state?.pageTitle}</NavBar>
-      <div className="billListDetail">
+      <div className="bill-list-detail">
         <p>收支明细</p>
         <div className="list">
           {billListDetail.map((item, index) => {
