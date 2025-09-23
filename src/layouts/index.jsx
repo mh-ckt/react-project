@@ -40,12 +40,15 @@ const Nav = () => {
   const navigate = useNavigate()
   const setRouteActive = value => {
     navigate(value)
+    // 设置文档标题
+    let title = tabs.find(i => i.key === value).title
+    document.title = title
   }
   return (
     <div className={styles.app}>
       <div className={styles.body}>{tabs.find(item => item.key === pathname).components}</div>
       <div className={styles.bottom}>
-        <TabBar activeKey={pathname} onChange={value => setRouteActive(value)}>
+        <TabBar activeKey={pathname} onChange={setRouteActive}>
           {tabs.map(item => (
             <TabBar.Item key={item.key} icon={item.icon} title={item.title} />
           ))}
