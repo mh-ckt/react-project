@@ -1,0 +1,84 @@
+.header-content {
+  width: 100%;
+  background-color: #fff;
+
+  .header-icon:hover {
+    transform: scale(1.1);
+    opacity: 0.6;
+    cursor: pointer;
+  }
+
+  .html-list {
+    position: fixed;
+    padding-top: 10px;
+    left: 0;
+    border-top: 1px solid #f7f7f7;
+    background-color: #fff;
+    width: 100%;
+    max-width: 100%;
+    z-index: 999;
+    height: 100vh;
+    transition: all 0.36s ease;
+    li {
+      margin: 0 20px;
+      line-height: 3;
+      cursor: pointer;
+    }
+    li:hover {
+      color: #4d4d4d;
+      opacity: 0.5;
+    }
+  }
+
+  .hide-list {
+    left: 100%;
+  }
+
+  .unfold-list {
+    left: 0;
+  }
+}
+
+.nav-bar {
+  height: 40px;
+  width: 100%;
+  border-bottom: 0.5px solid #eaeaea;
+  display: flex;
+  background-color: #fff;
+  line-height: 40px;
+  .left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: flex-start;
+    margin-left: 12px;
+    .back {
+      white-space: nowrap; // 禁止换行
+      box-sizing: border-box;
+    }
+    .back-icon {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: end;
+    margin-right: 12px;
+    .set-outline-icon {
+      margin-right: 10px;
+    }
+  }
+  .title {
+    flex: auto;
+    overflow: hidden;
+    padding: 0 12px;
+    // 显示省略号
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
