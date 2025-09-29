@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar } from '@/components/NavBar/index.jsx'
+import { Headerbox } from '@/components/headerbox/index.jsx'
 import { useNavigate, useLocation } from 'react-router-dom'
 import './index.less'
 import jiluzhangdan from '@/icons/jiluzhangdan.png'
@@ -27,7 +27,7 @@ const Index = () => {
 
   return (
     <div className="me">
-      <NavBar>{location?.state?.pageTitle}</NavBar>
+      <Headerbox>{location?.state?.pageTitle}</Headerbox>
       <div className="bill-list-detail">
         <p>收支明细</p>
         <div className="list">

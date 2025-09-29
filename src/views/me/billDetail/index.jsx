@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Popup, Button, Picker, Space } from 'antd-mobile'
-import { NavBar } from '@/components/NavBar/index.jsx'
+import { Headerbox } from '@/components/headerbox/index.jsx'
 import { useLocation, useNavigate } from 'react-router'
 import './index.less'
 import { dealType, basicColumns } from './data.js'
@@ -27,13 +27,13 @@ const Index = () => {
       a.map(item =>
         item.name === i.name
           ? {
-            checked: true,
-            name: item.name
-          }
+              checked: true,
+              name: item.name
+            }
           : {
-            checked: false,
-            name: item.name
-          }
+              checked: false,
+              name: item.name
+            }
       )
     )
   }
@@ -42,7 +42,7 @@ const Index = () => {
     navigate('/me/statistics')
   }
 
-  const notarizeHandle = () => { }
+  const notarizeHandle = () => {}
 
   // 日期选择确定
   const confirmChange = val => {
@@ -52,7 +52,7 @@ const Index = () => {
   }
   return (
     <div className="allBill">
-      <NavBar>{location?.state?.pageTitle}</NavBar>
+      <Headerbox>{location?.state?.pageTitle}</Headerbox>
       {/* 账单筛选 */}
       <div className="top">
         <div

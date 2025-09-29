@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router'
 import './index.less'
-import NavBar from '@/components/NavBar/index.jsx'
+import Headerbox from '@/components/headerbox/index.jsx'
 import { Collapse } from 'antd-mobile'
 import ReduxPages from '@/views/todo/highAction/reduxCase/index.jsx'
 import MobxPages from '@/views/todo/highAction/mobxCase/index.jsx'
@@ -53,15 +53,13 @@ const Index = () => {
   const title = location.state?.title || ''
   return (
     <div className="highAction">
-      <NavBar>{title}</NavBar>
+      <Headerbox>{title}</Headerbox>
       <Collapse accordion>
-        {
-          list.map(item => (
-            <Collapse.Panel title={item.title} key={item.title}>
-              {item.element}
-            </Collapse.Panel>
-          ))
-        }
+        {list.map(item => (
+          <Collapse.Panel title={item.title} key={item.title}>
+            {item.element}
+          </Collapse.Panel>
+        ))}
       </Collapse>
     </div>
   )

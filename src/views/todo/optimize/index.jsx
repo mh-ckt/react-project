@@ -1,5 +1,5 @@
 import React from 'react'
-import NavBar from '@/components/NavBar/index.jsx'
+import Headerbox from '@/components/headerbox/index.jsx'
 import { useLocation } from 'react-router-dom'
 
 const JavaScript = () => {
@@ -7,7 +7,7 @@ const JavaScript = () => {
   const title = location.state?.title || ''
   return (
     <div>
-      <NavBar>{title}</NavBar>
+      <Headerbox>{title}</Headerbox>
     </div>
   )
 }

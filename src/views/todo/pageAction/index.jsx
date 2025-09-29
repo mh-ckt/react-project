@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router'
 import './index.less'
-import NavBar from '@/components/NavBar/index.jsx'
+import Headerbox from '@/components/headerbox/index.jsx'
 import { Collapse } from 'antd-mobile'
 import RealizeStyle from '@/views/todo/pageAction/realizeStyle/index.jsx'
 import Side from '@/views/todo/pageAction/slide/index.jsx'
@@ -29,15 +29,13 @@ const Index = () => {
   const title = location.state?.title || ''
   return (
     <div className="pageAction">
-      <NavBar>{title}</NavBar>
+      <Headerbox>{title}</Headerbox>
       <Collapse accordion>
-        {
-          list.map(item => (
-            <Collapse.Panel title={item.title} key={item.title}>
-              {item.element}
-            </Collapse.Panel>
-          ))
-        }
+        {list.map(item => (
+          <Collapse.Panel title={item.title} key={item.title}>
+            {item.element}
+          </Collapse.Panel>
+        ))}
       </Collapse>
     </div>
   )
