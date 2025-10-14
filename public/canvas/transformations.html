@@ -1,0 +1,28 @@
+<style>
+
+</style>
+
+
+<div>
+  <canvas id="transformationsCanvas" class="signature-border"></canvas>
+</div>
+
+<script>
+  const ctx = document.getElementById('transformationsCanvas').getContext("2d")
+
+  ctx.fillRect(0, 0, 150, 150)
+  ctx.save()
+
+  ctx.fillStyle = '#09F'
+  ctx.fillRect(15, 15, 120, 120)
+
+  ctx.save(); // 保存当前状态
+  ctx.fillStyle = "#FFF"; // 再次改变颜色配置
+  ctx.globalAlpha = 0.5;
+  ctx.fillRect(30, 30, 90, 90); // 使用新的配置绘制一个矩形
+
+  // ctx.restore(); // 重新加载之前的颜色状态
+  // ctx.fillRect(45, 45, 60, 60); // 使用上一次的配置绘制一个矩形
+
+
+</script>
