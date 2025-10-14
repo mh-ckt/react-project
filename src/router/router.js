@@ -12,6 +12,7 @@ import OptimizeQuestion from '@/views/todo/optimize/index.jsx'
 import BuiltInHook from '@/views/todo/builtInHook/index.jsx'
 import AdvancedFeatures from '@/views/todo/highAction/index.jsx'
 import PageFeatures from '@/views/todo/pageAction/index.jsx'
+import PageCanvas from '@/views/todo/canvas/index.jsx'
 
 // 路由配置数组
 const routeConfig = [
@@ -20,6 +21,7 @@ const routeConfig = [
     path: '/',
     element: <Navigate to="/home" />
   },
+
   // 主页面路由 - 使用主布局
   {
     path: '/home',
@@ -98,6 +100,11 @@ const routeConfig = [
         path: 'page-features',
         name: '页面功能',
         element: <PageFeatures />
+      },
+      {
+        path: 'page-canvas',
+        name: '画布实现',
+        element: <PageCanvas />
       }
     ]
   }

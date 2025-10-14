@@ -1,39 +1,30 @@
 import React from 'react'
 import './index.less'
-import Signature from '@/views/todo/canvas/signature/index.jsx'
-import { useNavigate } from 'react-router-dom'
 import Headerbox from '@/components/headerbox/index.jsx'
 
 let list = [
   {
-    title: '跳转到原生的 Canvas 绘制基础图形详解',
+    title: 'canvas绘制基础图形详解',
     path: '/canvas/canvasTutorial.html'
+  },
+  {
+    title: 'canvas基础版本电子签名',
+    path: '/canvas/signature.html'
+  },
+  {
+    title: 'canvas中变形的应用',
+    path: '/canvas/transformations.html'
+  },
+  {
+    title: 'canvas实现简单动画',
+    path: '/canvas/simpleAnimation.html'
   }
 ]
 
 const Index = () => {
-  let navigate = useNavigate()
-  const currentDomain = window.location.host
-  console.log(8888, currentDomain)
-
-  const toHtmlPages = item => {
-    console.log(9999)
-    // navigate(item.path)
-    window.location.href = item.path
-  }
   return (
     <div className="canvas-pages">
-      <Headerbox>canvas</Headerbox>
-      <Signature />
-      <ul>
-        {list.map(item => {
-          return (
-            <li key={item.path} onClick={() => toHtmlPages(item)}>
-              {item.title}
-            </li>
-          )
-        })}
-      </ul>
+      <Headerbox htmlList={list}>canvas</Headerbox>
     </div>
   )
 }

@@ -1,0 +1,134 @@
+<style>
+  .container {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .signature-border {
+    width: 98%;
+    height: 300px;
+    border: 4px dashed #cbd5e1;
+    border-radius: 10px;
+    cursor: crosshair;
+  }
+</style>
+
+
+<div class="container">
+  <p>电子签名</p>
+  <canvas id="signatureCanvas" class="signature-border"></canvas>
+</div>
+
+
+<script>
+  // 获取Canvas元素和上下文
+  const canvas = document.getElementById('signatureCanvas');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+  // 签名状态变量
+  let isDrawing = false;
+  let lastX = 0;
+  let lastY = 0;
+  let lineColor = '#000000';
+  let lineWidth = 2;
+
+  // 初始化Canvas
+  function initCanvas() {
+    // 设置Canvas样式
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = lineWidth;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+  }
+
+  // 响应窗口大小变化
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const { width, height } = rect
+    // 保存当前画布内容
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    // 调整Canvas尺寸
+    canvas.width = width
+    canvas.height = height
+    // 恢复画布内容
+    ctx.putImageData(imageData, 0, 0);
+    // 重新设置绘图样式
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = lineWidth;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+  }
+
+  // 获取坐标（适配鼠标和触摸事件）
+  function getCoordinates(e) {
+    const rect = canvas.getBoundingClientRect();
+    if (e.type.includes('mouse')) {
+      return [
+        e.clientX - rect.left,
+        e.clientY - rect.top
+      ]
+    } else if (e.type.includes('touch')) {
+      return [
+        e.touches[0].clientX - rect.left,
+        e.touches[0].clientY - rect.top
+      ];
+    }
+  }
+
+  // 开始绘制
+  function startDrawing(e) {
+    isDrawing = true
+    lastX = getCoordinates(e)[0]
+    lastY = getCoordinates(e)[1]
+  }
+
+  // 绘制中
+  function draw(e) {
+    if (!isDrawing) return;
+    const [currentX, currentY] = getCoordinates(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(currentX, currentY);
+    ctx.stroke();
+    // 解释： 这里是将当前移动的坐标赋值给下一次绘制的起点，实现线条的流畅。
+    [lastX, lastY] = [currentX, currentY];
+  }
+
+  // 结束绘制
+  function stopDrawing() {
+    isDrawing = false
+  }
+
+  // 绑定事件监听
+  function bindEvents() {
+    canvas.addEventListener('mousedown', startDrawing)
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseout', stopDrawing);
+    // 触摸事件（移动设备）
+    canvas.addEventListener('touchstart', (e) => {
+      e.preventDefault(); // 防止触摸事件被浏览器默认处理
+      startDrawing(e);
+    });
+    canvas.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      draw(e);
+    });
+    canvas.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      stopDrawing();
+    });
+  }
+
+
+  // 初始化
+  window.addEventListener('load', () => {
+    initCanvas();
+    bindEvents();
+  });
+
+</script>
