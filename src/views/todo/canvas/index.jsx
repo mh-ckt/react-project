@@ -18,6 +18,10 @@ let list = [
   {
     title: 'canvas实现简单动画',
     path: '/canvas/simpleAnimation.html'
+  },
+  {
+    title: 'canvas序列帧渲染',
+    path: '/canvas/equenceFrame.html'
   }
 ]
 

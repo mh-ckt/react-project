@@ -1,0 +1,128 @@
+<style>
+  body,
+  p {
+    margin: 0;
+  }
+
+  .floor1-container,
+  .floor3-container {
+    background-color: #474646;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .floor3-container p,
+  .floor1-container p {
+    font-size: 5vw;
+    color: #fff;
+  }
+
+  .floor2-container {
+    height: 200vh;
+    background-color: black;
+    color: #fff;
+  }
+
+  .floor2-container p {
+    text-align: center;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 0;
+    height: 500px;
+    width: 100%;
+  }
+
+  .canvas {
+    width: 100%;
+    height: auto;
+  }
+</style>
+
+<section class="floor1-container floor-container">
+  <p>楼层一</p>
+</section>
+<section class="floor2-container floor-container" id="targetFloor">
+  <div class="sticky">
+    <p>楼层二</p>
+    <canvas class="canvas" id="hero-lightpass"></canvas>
+  </div>
+</section>
+<section class="floor3-container floor-container">
+  <p>楼层三</p>
+</section>
+
+<script>
+  const frameCount = 147;
+  const images = []
+  const canvas = document.getElementById('hero-lightpass')
+  const context = canvas.getContext("2d");
+  const airpods = {
+    frame: 0
+  };
+  // 获取目标楼层（floor2）的DOM元素
+  const targetFloor = document.getElementById('targetFloor');
+
+  // 序列帧图片地址模板
+  const currentFrame = index => (
+    `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/01-hero-lightpass/${(index + 1).toString().padStart(4, '0')}.jpg`
+  );
+
+  for (let i = 0; i < frameCount; i++) {
+    const img = new Image();
+    img.src = currentFrame(i);
+    images.push(img);
+  }
+
+  images[0].onload = render
+  function render() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(images[airpods.frame], 0, 0, canvas.width, canvas.height);
+  }
+
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const { width, height } = rect
+    canvas.width = width
+    canvas.height = height
+    render()
+  }
+
+
+  function handleScroll() {
+    const viewportHeight = window.innerHeight; // 获取视口高度
+    const floorTop = targetFloor.offsetTop; // 目标楼层距离顶部的距离
+    const floorHeight = targetFloor.offsetHeight; // 目标楼层自身的距离
+    const currentScrollY = window.scrollY; // 获取当前滚动位置（页面顶部到视口顶部的距离）
+    const scrollEnd = floorTop + floorHeight - viewportHeight; // 滚动结束：目标楼层底部进入视口
+    let scrollProgress = 0; // 滚动进度（0~1）
+
+    if (currentScrollY < floorTop) {
+      scrollProgress = 0;
+    } else if (currentScrollY > scrollEnd) {
+      scrollProgress = 1;
+    } else {
+      const scrollDistanceInFloor = currentScrollY - floorTop;  // 在目标楼层的有效区间内计算滚动的进度
+      const totalScrollNeeded = scrollEnd - floorTop; // 目标楼层需要滚动的总距离
+      scrollProgress = scrollDistanceInFloor / totalScrollNeeded;
+    }
+    const targetFrame = Math.floor(scrollProgress * (frameCount - 1)); // 根据进度计算当前应该显示的帧
+    // 只有当帧发生变化时才重新渲染，优化性能
+    if (targetFrame !== airpods.frame) {
+      airpods.frame = targetFrame;
+      render();
+    }
+  }
+
+  // 初始化
+  window.addEventListener('load', () => {
+    // 监听页面滚动条
+    window.addEventListener('scroll', handleScroll)
+    // 监听页面窗口尺寸变化
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas()
+  });
+</script>
