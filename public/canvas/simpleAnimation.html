@@ -1,0 +1,134 @@
+<style>
+  .canvas-container {
+    position: relative;
+  }
+
+  .canvas {
+    background-color: black;
+  }
+
+  /* 隐藏原始img元素，仅用于加载图片 */
+  .earth-image,
+  .moon-image,
+  .sun-image {
+    display: none;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+</style>
+
+<div class="canvas-container">
+  <canvas class="canvas" id="canvas" width="300" height="300"></canvas>
+  <!-- 将img放在canvas外部 -->
+  <img class="sun-image" id="sunImg" src="../images/canvas_sun.png" alt="sun">
+  <img class="earth-image" id="earthImg" src="../images/canvas_earth.png" alt="earth">
+  <img class="moon-image" id="moonImg" src="../images/canvas_moon.png" alt="sun">
+
+</div>
+
+<script>
+  // 获取DOM中的太阳图片元素
+  const sunImg = document.getElementById('sunImg');
+  const earthImg = document.getElementById('earthImg');
+  const moonImg = document.getElementById('moonImg');
+
+  // 图片尺寸配置
+  const imageSizes = {
+    sun: { width: 100, height: 100 },
+    earth: { width: 20, height: 20 },
+    moon: { width: 6, height: 6 }
+  };
+
+  function init() {
+    // 等待所有图片加载完成
+    let loadedImages = 0;
+    const totalImages = 3;
+
+    function checkAllLoaded() {
+      loadedImages++;
+      if (loadedImages === totalImages) {
+        // 开始动画
+        window.requestAnimationFrame(draw);
+      }
+    }
+
+    // 太阳图片的加载事件
+    sunImg.onload = checkAllLoaded;
+    // 其他图片的加载事件
+    earthImg.onload = checkAllLoaded;
+    moonImg.onload = checkAllLoaded;
+
+    // 处理图片已经缓存的情况
+    if (sunImg.complete) checkAllLoaded();
+    if (moonImg.complete) checkAllLoaded();
+    if (earthImg.complete) checkAllLoaded();
+  }
+
+  function draw() {
+    const ctx = document.getElementById("canvas").getContext("2d");
+    const time = new Date();
+
+    // 清除画布
+    ctx.clearRect(0, 0, 300, 300);
+
+    // 保存初始状态
+    ctx.save();
+
+    // 移动到画布中心
+    ctx.translate(150, 150);
+
+    // 绘制太阳（使用DOM中的img元素）
+    ctx.drawImage(
+      sunImg,
+      -imageSizes.sun.width / 2,  // 负一半宽度使太阳居中
+      -imageSizes.sun.height / 2, // 负一半高度使太阳居中
+      imageSizes.sun.width,
+      imageSizes.sun.height
+    );
+
+    // 绘制地球轨道
+    ctx.beginPath();
+    ctx.strokeStyle = "rgb(0 153 255 / 40%)";
+    ctx.arc(0, 0, 105, 0, Math.PI * 2, false);
+    ctx.stroke();
+
+    // 绘制地球（围绕太阳旋转）
+    ctx.save();
+    ctx.rotate(
+      ((2 * Math.PI) / 60) * time.getSeconds() +
+      ((2 * Math.PI) / 60000) * time.getMilliseconds()
+    );
+    ctx.translate(105, 0);
+    ctx.drawImage(
+      earthImg,
+      -imageSizes.earth.width / 2,
+      -imageSizes.earth.height / 2,
+      imageSizes.earth.width,
+      imageSizes.earth.height
+    );
+
+    // 绘制月亮（围绕地球旋转）
+    ctx.save();
+    ctx.rotate(
+      ((2 * Math.PI) / 6) * time.getSeconds() +
+      ((2 * Math.PI) / 6000) * time.getMilliseconds()
+    );
+    ctx.translate(0, 28.5);
+    ctx.drawImage(
+      moonImg,
+      -imageSizes.moon.width / 2,
+      -imageSizes.moon.height / 2,
+      imageSizes.moon.width,
+      imageSizes.moon.height
+    );
+    ctx.restore(); // 恢复月亮的上下文状态
+
+    ctx.restore(); // 恢复地球的上下文状态
+    ctx.restore(); // 恢复初始的上下文状态
+
+    // 继续动画循环
+    window.requestAnimationFrame(draw);
+  }
+
+  init();
+</script>
