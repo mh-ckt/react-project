@@ -1,0 +1,117 @@
+<style>
+  .container {
+    background-color: #fff;
+  }
+
+  .canvas {
+    border: 4px dashed #cbd5e1;
+  }
+</style>
+
+
+<div class="container">
+  <canvas id="canvas" class="canvas" width="500" height="200"></canvas>
+</div>
+
+
+<script>
+  let canvas = document.getElementById('canvas')
+  let ctx = canvas.getContext('2d')
+  // 公共样式
+  ctx.lineWidth = 2
+  ctx.strokeStyle = 'black';
+
+  // 绘制路径
+  function drawLine() {
+    ctx.moveTo(25, 25);
+    ctx.lineTo(105, 25);
+    ctx.stroke()
+  }
+
+  function drawTriangle() {
+    // 1. 绘制空心三角形
+    ctx.beginPath()
+    ctx.moveTo(150, 25) // 顶点1
+    ctx.lineTo(200, 25) // 顶点2（水平向右）
+    ctx.lineTo(150, 75) // 顶点3（向左下方）
+    ctx.closePath() // 闭合路径（连接顶点3与顶点1）
+    ctx.stroke() // 渲染空心轮廓
+
+    // 2. 绘制实心三角形（位置偏移，避免与空心重叠）
+    ctx.beginPath()
+    ctx.moveTo(155, 30) // 顶点1（右移5px，下移5px）
+    ctx.lineTo(185, 30) // 顶点2（缩短宽度，更美观）
+    ctx.lineTo(155, 60) // 顶点3（上移15px，避免超出范围）
+    ctx.fillStyle = '#4299e1' // 单独设置填充色（蓝色）
+    ctx.fill() // 填充实心（无需 closePath()，自动闭合）
+  }
+
+
+  // 绘制矩形
+  function drawSquare() {
+    // 1. 空心矩形：strokeRect(x, y, 宽度, 高度)
+    ctx.strokeRect(10, 100, 50, 50) // 位置(10,100)，尺寸50x50
+
+    // 2. 实心矩形：fillRect(x, y, 宽度, 高度)（偏移避免重叠）
+    ctx.fillStyle = '#48bb78' // 填充色（绿色）
+    ctx.fillRect(15, 105, 40, 40) // 位置(15,105)，尺寸40x40
+
+    // 3. 清除矩形区域：clearRect(x, y, 宽度, 高度)（生成“镂空”效果）
+    ctx.clearRect(25, 115, 20, 20) // 清除中间20x20区域，变为透明
+  }
+
+  // 绘制圆形
+  // 绘制圆形使用的方法是arc(x, y, radius, startAngle, endAngle, anticlockwise)。x，y代表圆心坐标，radius为半径，startAngle和endAngle参数用弧度定义了开始以及结束的弧度，弧度=(Math.PI/180)*角度。anticlockwise是方向，默认顺时针。
+
+  // 提示：为了保证新的圆弧不会追加到上一次的路径中，在每一次绘制圆弧的过程中都需要使用beginPath()方法。
+
+  function drawCircle() {
+    // 1. 绘制完整圆形（360° = 2π 弧度）
+    ctx.beginPath()
+    ctx.arc(100, 125, 25, 0, Math.PI * 2, false) // 圆心(100,125)，半径25
+    ctx.stroke()
+
+    // 2. 绘制上半圆（逆时针，180° = π 弧度）
+    ctx.beginPath()
+    ctx.arc(100, 125, 15, 0, Math.PI, true) // 半径15，逆时针绘制上半圆
+    ctx.stroke()
+
+    // 3. 绘制实心下半圆（顺时针）
+    ctx.beginPath()
+    ctx.arc(100, 130, 10, 0, Math.PI, false) // 圆心下移5px，半径10
+    ctx.fillStyle = '#f6ad55' // 填充色（橙色）
+    ctx.fill()
+  }
+
+  // 绘制笑脸
+  function drawSmilingFace() {
+    // 1. 绘制脸部轮廓（圆形）
+    ctx.beginPath()
+    ctx.arc(170, 125, 25, 0, Math.PI * 2, false) // 圆心(170,125)，半径25
+    ctx.stroke()
+
+    // 2. 绘制左眼（小圆）
+    ctx.beginPath()
+    ctx.arc(163, 120, 3, 0, Math.PI * 2, false) // 左眼位置：左移7px，上移5px
+    ctx.fillStyle = '#2d3748' // 眼睛颜色（深灰）
+    ctx.fill() // 实心眼睛，无需 stroke()
+
+    // 3. 绘制右眼（小圆，与左眼对称）
+    ctx.beginPath()
+    ctx.arc(178, 120, 3, 0, Math.PI * 2, false) // 右眼位置：右移8px，上移5px
+    ctx.fill()
+
+    // 4. 绘制微笑嘴巴（下半圆，顺时针）
+    ctx.beginPath()
+    ctx.arc(170, 123, 18, 0, Math.PI, false) // 圆心(170,123)，半径18，180°
+    ctx.stroke()
+  }
+
+  window.addEventListener('load', () => {
+    drawLine()
+    drawTriangle()
+    drawSquare()
+    drawCircle()
+    drawSmilingFace()
+  })
+</script>
