@@ -13,6 +13,7 @@ import BuiltInHook from '@/views/todo/builtInHook/index.jsx'
 import AdvancedFeatures from '@/views/todo/highAction/index.jsx'
 import PageFeatures from '@/views/todo/pageAction/index.jsx'
 import PageCanvas from '@/views/todo/canvas/index.jsx'
+import Page3dAnimation from '@/views/todo/3dAnimation/index.jsx'
 
 // 路由配置数组
 const routeConfig = [
@@ -105,6 +106,11 @@ const routeConfig = [
         path: 'page-canvas',
         name: '画布实现',
         element: <PageCanvas />
+      },
+      {
+        path: '3d-animation',
+        name: '炫酷3D',
+        element: <Page3dAnimation />
       }
     ]
   }
