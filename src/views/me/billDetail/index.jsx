@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router'
 import './index.less'
 import { dealType, basicColumns } from './data.js'
 import { DownFill, RightOutline, DownOutline } from 'antd-mobile-icons'
+import Calender from '@/components/calendar/index.jsx'
 
 const Index = () => {
   const location = useLocation()
@@ -103,6 +104,8 @@ const Index = () => {
         </Picker>
         <div className="center-right">支出：¥33.98</div>
       </div>
+
+      <Calender />
 
       {/* 账单列表 */}
       <div className="bottom"></div>
